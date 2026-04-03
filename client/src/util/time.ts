@@ -33,7 +33,12 @@ const getLastTickDate = (game: TGame) => {
     return null;
   }
 
-  const isBehind = game.state.lastTickDate.getTime() + (game.settings.gameTime.speed * 1000) < Date.now();
+  // Ensure lastTickDate is a Date object (may be a string from API responses)
+  const tickDate = game.state.lastTickDate instanceof Date
+    ? game.state.lastTickDate
+    : new Date(game.state.lastTickDate);
+
+  const isBehind = tickDate.getTime() + (game.settings.gameTime.speed * 1000) < Date.now();
 
   if (GameHelper.isGameInProgress(game) && !isBehind) {
     return game.state.lastTickDate;

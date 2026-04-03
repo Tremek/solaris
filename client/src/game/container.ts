@@ -81,6 +81,9 @@ export class GameContainer {
     })
 
     // add the viewport to the stage
+    // Pixi v8: stage must have eventMode set for pointer events to propagate
+    this.app.stage.eventMode = 'static';
+    this.app.stage.hitArea = this.app.screen;
     this.app.stage.addChild(this.viewport);
     this.game = game;
 
