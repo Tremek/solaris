@@ -6,6 +6,14 @@
 
 FROM node:24-slim AS build
 
+# Vue build-time env. Defaulted to the solaris-beta.tremek.dev
+# domains the iOS app's BETA server slot points at. Override with
+# Railway build args if the target changes.
+ARG VUE_APP_API_HOST=https://api.solaris-beta.tremek.dev
+ARG VUE_APP_SOCKETS_HOST=api.solaris-beta.tremek.dev
+ENV VUE_APP_API_HOST=$VUE_APP_API_HOST
+ENV VUE_APP_SOCKETS_HOST=$VUE_APP_SOCKETS_HOST
+
 RUN mkdir /solaris
 WORKDIR /solaris
 
